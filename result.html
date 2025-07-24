@@ -1,59 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spotter Rush - Result</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    h1 {
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1.3em;
-      margin-bottom: 30px;
-    }
-
-    .btn {
-      background-color: #ff6666;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      font-size: 1em;
-      border-radius: 6px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .btn:hover {
-      background-color: #ff4d4d;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Over - Spotter Rush</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <h1>🎉 Game Over!</h1>
-  <p id="scoreText">Your Score: 0</p>
-  <a class="btn" href="game.html">Play Again</a>
-
+<body class="result">
+  <div class="container">
+    <h1>🎉 Game Over!</h1>
+    <p>Your final score is: <span id="finalScore">0</span></p>
+    <a href="index.html" class="btn">Play Again</a>
+  </div>
   <script>
-    // Get score from query param
     const params = new URLSearchParams(window.location.search);
-    const score = params.get("score") || 0;
-    document.getElementById("scoreText").textContent = `Your Score: ${score}`;
+    const score = params.get('score') || 0;
+    document.getElementById('finalScore').textContent = score;
   </script>
 </body>
 </html>
