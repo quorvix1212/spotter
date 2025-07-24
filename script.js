@@ -3,39 +3,39 @@ const startBtn = document.getElementById('startBtn');
 const timerEl = document.getElementById('timer');
 const scoreEl = document.getElementById('score');
 
-let timer, gameTime = 30, score = 0;
+let timer, refreshTimer;
+let gameTime = 60;
+let score = 0;
+let clickableBoxes = [];
 
-function createRow() {
-  const row = document.createElement('div');
-  row.classList.add('row');
+function createFullGrid() {
+  grid.innerHTML = '';
+  clickableBoxes = [];
 
-  const totalCols = 7;
-  const oddIndex = Math.floor(Math.random() * totalCols);
+  const rows = 7;
+  const cols = 4;
 
-  for (let i = 0; i < totalCols; i++) {
-    const box = document.createElement('div');
-    box.classList.add('box');
-    box.style.backgroundColor = (i === oddIndex) ? 'orange' : 'red';
+  for (let r = 0; r < rows; r++) {
+    const oddIndex = Math.floor(Math.random() * cols);
+    for (let c = 0; c < cols; c++) {
+      const box = document.createElement('div');
+      box.classList.add('box');
+      box.style.backgroundColor = (c === oddIndex) ? 'orange' : 'red';
 
-    if (i === oddIndex) {
-      box.addEventListener('click', () => {
-        score++;
-        scoreEl.textContent = score;
-        box.style.outline = '2px solid green';
-        box.style.pointerEvents = 'none';
-      });
-    } else {
-      box.style.pointerEvents = 'none';
+      if (c === oddIndex) {
+        box.addEventListener('click', () => {
+          if (!box.clicked) {
+            score++;
+            scoreEl.textContent = score;
+            box.clicked = true;
+            box.style.outline = '2px solid green';
+          }
+        });
+        clickableBoxes.push(box);
+      }
+
+      grid.appendChild(box);
     }
-
-    row.appendChild(box);
-  }
-
-  grid.prepend(row);
-
-  // Keep only 4 rows
-  while (grid.childElementCount > 4) {
-    grid.removeChild(grid.lastChild);
   }
 }
 
@@ -46,15 +46,19 @@ startBtn.addEventListener('click', () => {
   scoreEl.textContent = '0';
   timerEl.textContent = gameTime;
 
-  createRow(); // First row
+  createFullGrid();
+
+  refreshTimer = setInterval(() => {
+    createFullGrid();
+  }, 5000);
+
   timer = setInterval(() => {
-    createRow();
     gameTime--;
     timerEl.textContent = gameTime;
 
     if (gameTime <= 0) {
       clearInterval(timer);
-      // Redirect with score
+      clearInterval(refreshTimer);
       window.location.href = `result.html?score=${score}`;
     }
   }, 1000);
