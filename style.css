@@ -16,14 +16,51 @@ html, body {
   background-color: #f3f7e4;
 }
 
-.game-container {
+.container {
   text-align: center;
   width: 100%;
   max-width: 900px;
   padding: 20px;
 }
 
-/* Grid Styling */
+h1, h2 {
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+.btn {
+  padding: 12px 24px;
+  font-size: 1.5em;
+  background-color: #ff6f61;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #ff4f3d;
+}
+
+/* Backgrounds */
+body.home {
+  background: linear-gradient(to right, #f6a700, #f7d49e);
+}
+
+body.game {
+  background: url('https://images.unsplash.com/photo-1468532190462-12a7e2d9d1e1') no-repeat center center fixed;
+  background-size: cover;
+}
+
+body.result {
+  background: linear-gradient(to right, #ffafbd, #ffc3a0);
+}
+
+/* Grid Styles */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 columns */
@@ -46,22 +83,6 @@ html, body {
 .orange {
   background-color: orange;
   border: 2px solid green;
-}
-
-/* Button Styling */
-.btn {
-  padding: 12px 24px;
-  font-size: 1.5em;
-  background-color: #ff6f61;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.btn:hover {
-  background-color: #ff4f3d;
 }
 
 /* Mobile responsiveness */
