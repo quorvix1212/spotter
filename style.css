@@ -1,94 +1,44 @@
-/* General Reset */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-/* Body */
-body {
+html, body {
+  height: 100vh;
+  overflow: hidden;
   font-family: Arial, sans-serif;
+  background-color: #f3f7e4;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(to right, #f6a700, #f7d49e); /* Warm yellow to soft orange */
-  overflow: hidden;
-  color: white;
+}
+
+.game-container {
   text-align: center;
-}
-
-/* Page-specific backgrounds */
-body.home {
-  background: linear-gradient(to right, #ff9e2c, #fbd772); /* Bright homepage background */
-}
-
-body.game {
-  background: url('https://images.unsplash.com/photo-1468532190462-12a7e2d9d1e1') no-repeat center center fixed;
-  background-size: cover;
-}
-
-body.result {
-  background: linear-gradient(to right, #ffafbd, #ffc3a0); /* Soft result page background */
-}
-
-/* Container and Main Content */
-.container {
   width: 100%;
   max-width: 900px;
-  margin: 20px auto;
-  padding: 20px;
+  padding: 10px;
 }
 
-h1, h2 {
-  font-size: 2.5em;
-  margin-bottom: 15px;
-}
-
-h2 {
-  font-size: 2em;
-}
-
-.btn {
-  padding: 12px 24px;
-  font-size: 1.5em;
-  background-color: #ff6f61;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.btn:hover {
-  background-color: #ff4f3d;
-}
-
-/* Grid Styling */
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns */
-  grid-template-rows: repeat(7, 1fr); /* 7 rows */
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(7, 1fr);
   gap: 10px;
   margin-top: 20px;
-  width: 90vw; /* Make the grid 90% of the screen width */
-  max-width: 600px;
-  height: 70vh; /* Make sure the grid fits within 70% of screen height */
-  visibility: visible;
-  background: rgba(255, 255, 255, 0.8); /* Slightly translucent for contrast */
+  height: calc(100vh - 160px); /* Adjust height minus top text */
 }
 
-/* Tile Styling */
 .box {
   background-color: red;
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.2s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5em;
+}
+
+.box:hover {
+  transform: scale(1.05);
 }
 
 .orange {
@@ -96,37 +46,9 @@ h2 {
   border: 2px solid green;
 }
 
-.hidden {
-  display: none;
-}
-
-/* Info Section */
-#info {
-  font-size: 1.5em;
-  margin-bottom: 15px;
-}
-
-/* Mobile View Fixes */
 @media (max-width: 768px) {
-  body {
-    background: linear-gradient(to right, #f6a700, #f7d49e); /* Gradient for mobile */
-  }
-  
-  .container {
-    padding: 15px;
-  }
-
-  .btn {
-    font-size: 1.2em;
-    padding: 10px 20px;
-  }
-
-  h1, h2 {
-    font-size: 2em;
-  }
-
   .grid {
-    width: 100%;
-    max-width: none;
+    gap: 6px;
+    height: calc(100vh - 140px);
   }
 }
