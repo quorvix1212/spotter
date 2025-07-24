@@ -5,37 +5,69 @@
   box-sizing: border-box;
 }
 
-/* HTML and Body */
+/* Body and General Styles */
 html, body {
   height: 100%;
-  overflow: hidden;
   font-family: Arial, sans-serif;
-  background-color: #f3f7e4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-.game-container {
+.container {
   text-align: center;
   width: 100%;
   max-width: 900px;
-  padding: 10px;
+  padding: 20px;
 }
 
-/* Grid Styling */
+h1, h2 {
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+.btn {
+  padding: 12px 24px;
+  font-size: 1.5em;
+  background-color: #ff6f61;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #ff4f3d;
+}
+
+/* Backgrounds */
+body.home {
+  background: linear-gradient(to right, #f6a700, #f7d49e);
+}
+
+body.game {
+  background: url('https://images.unsplash.com/photo-1468532190462-12a7e2d9d1e1') no-repeat center center fixed;
+  background-size: cover;
+}
+
+body.result {
+  background: linear-gradient(to right, #ffafbd, #ffc3a0);
+}
+
+/* Grid Styles */
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns */
-  grid-template-rows: repeat(7, 1fr); /* 7 rows */
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(7, 1fr);
   gap: 10px;
   margin-top: 20px;
-  width: 90vw; /* 90% of screen width */
-  height: 70vh; /* 70% of screen height */
-  max-height: 500px; /* Maximum grid height */
+  width: 80vw;
+  height: 70vh;
+  max-width: 600px;
+  max-height: 500px;
 }
 
-/* Box (Tile) Styling */
 .box {
   background-color: red;
   border-radius: 10px;
@@ -43,24 +75,25 @@ html, body {
   transition: transform 0.2s;
 }
 
-.box:hover {
-  transform: scale(1.05);
-}
-
 .orange {
   background-color: orange;
   border: 2px solid green;
 }
 
-/* Responsive Layout for Mobile */
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .grid {
     width: 100%;
-    height: 60vh; /* Smaller grid on mobile */
+    height: 50vh;
     gap: 6px;
   }
 
-  .game-container {
-    padding: 15px;
+  .btn {
+    font-size: 1.2em;
+    padding: 10px 20px;
+  }
+
+  h1, h2 {
+    font-size: 2em;
   }
 }
