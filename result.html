@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Spotter Rush - Result</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Game Over - Spotter Rush</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>🎉 Time’s Up!</h1>
-    <p>Your Score: <span id="finalScore">0</span></p>
-    <a href="index.html" class="btn">Go to Home</a>
+    <h1>⏱️ Time's Up!</h1>
+    <p>Your final score is: <span id="finalScore"></span></p>
+    <a href="index.html" class="btn">Go to Game Home</a>
   </div>
+
   <script>
-    const params = new URLSearchParams(window.location.search);
-    document.getElementById('finalScore').textContent = params.get('score') || 0;
+    const score = localStorage.getItem('finalScore') || 0;
+    document.getElementById('finalScore').textContent = score;
   </script>
 </body>
 </html>
