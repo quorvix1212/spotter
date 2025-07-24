@@ -1,24 +1,69 @@
+/* General Reset */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-html, body {
-  height: 100vh;
-  overflow: hidden;
+/* Body */
+body {
   font-family: Arial, sans-serif;
-  background-color: #f3f7e4;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to right, #f6a700, #f7d49e); /* Warm yellow to soft orange */
+  overflow: hidden;
+  color: white;
+  text-align: center;
 }
 
-.game-container {
-  text-align: center;
+/* Background for specific pages */
+body.home {
+  background: linear-gradient(to right, #ff9e2c, #fbd772); /* Bright welcoming for homepage */
+}
+
+body.game {
+  background: url('https://images.unsplash.com/photo-1468532190462-12a7e2d9d1e1') no-repeat center center fixed;
+  background-size: cover;
+}
+
+body.result {
+  background: linear-gradient(to right, #ffafbd, #ffc3a0); /* Soft, warm colors for result */
+}
+
+/* Container styling */
+.container {
   width: 100%;
   max-width: 900px;
-  padding: 10px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+/* Main content (text, button) */
+h1, h2 {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+.btn {
+  padding: 12px 24px;
+  font-size: 1.5em;
+  background-color: #ff6f61;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #ff4f3d;
 }
 
 .grid {
@@ -27,7 +72,8 @@ html, body {
   grid-template-rows: repeat(7, 1fr);
   gap: 10px;
   margin-top: 20px;
-  height: calc(100vh - 160px); /* Adjust height minus top text */
+  width: 90%;
+  max-width: 600px;
 }
 
 .box {
@@ -37,18 +83,43 @@ html, body {
   transition: transform 0.2s;
 }
 
-.box:hover {
-  transform: scale(1.05);
-}
-
+/* Orange Box */
 .orange {
   background-color: orange;
   border: 2px solid green;
 }
 
+/* Info Section */
+#info {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Responsive for mobile */
 @media (max-width: 768px) {
+  body {
+    background: linear-gradient(to right, #f6a700, #f7d49e); /* Gradient for mobile */
+  }
+  
+  .container {
+    padding: 15px;
+  }
+
+  .btn {
+    font-size: 1.2em;
+    padding: 10px 20px;
+  }
+
+  h1, h2 {
+    font-size: 2em;
+  }
+
   .grid {
-    gap: 6px;
-    height: calc(100vh - 140px);
+    width: 100%;
+    max-width: none;
   }
 }
