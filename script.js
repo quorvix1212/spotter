@@ -1,72 +1,55 @@
-const startBtn = document.getElementById("startBtn");
-const grid = document.getElementById("grid");
-const timerDisplay = document.getElementById("timer");
-const scoreDisplay = document.getElementById("score");
+const grid = document.getElementById('grid');
+const startBtn = document.getElementById('startBtn');
+const timerEl = document.getElementById('timer');
+const scoreEl = document.getElementById('score');
 
-let gameInterval, tickInterval;
-let timeLeft = 60;
+let timer, refreshTimer;
+let gameTime = 60;
 let score = 0;
-let clickedRows = new Set();
 
-startBtn.addEventListener("click", startGame);
+startBtn.addEventListener('click', startGame);
 
 function startGame() {
-  startBtn.classList.add("hidden");
-  grid.classList.remove("hidden");
-  resetGrid();
-  tickInterval = setInterval(resetGrid, 5000);
+  startBtn.style.display = 'none'; // Hide the start button
+  grid.style.display = 'grid'; // Show the grid
+  score = 0;
+  scoreEl.textContent = score;
+  gameTime = 60;
+  timerEl.textContent = gameTime;
 
-  gameInterval = setInterval(() => {
-    timeLeft--;
-    timerDisplay.textContent = timeLeft;
+  createFullGrid(); // Create the grid initially
+  refreshTimer = setInterval(createFullGrid, 5000); // Refresh grid every 5 seconds
 
-    if (timeLeft <= 0) {
-      clearInterval(gameInterval);
-      clearInterval(tickInterval);
+  timer = setInterval(() => {
+    gameTime--;
+    timerEl.textContent = gameTime;
+    if (gameTime <= 0) {
+      clearInterval(timer);
+      clearInterval(refreshTimer);
       window.location.href = `result.html?score=${score}`;
     }
   }, 1000);
 }
 
-function resetGrid() {
-  grid.innerHTML = "";
-  clickedRows.clear();
-
+function createFullGrid() {
+  grid.innerHTML = ''; // Clear the grid before re-adding tiles
   for (let row = 0; row < 7; row++) {
-    const orangeIndex = Math.floor(Math.random() * 4);
-
     for (let col = 0; col < 4; col++) {
-      const tile = document.createElement("div");
-      tile.classList.add("tile");
-      tile.dataset.row = row;
+      const box = document.createElement('div');
+      box.classList.add('box'); // Add the box class (red tile)
+      box.style.backgroundColor = 'red'; // Make sure it's red initially
 
-      if (col === orangeIndex) {
-        tile.classList.add("orange");
-        tile.addEventListener("click", () => handleCorrectClick(tile, row));
-      } else {
-        tile.addEventListener("click", () => handleWrongClick(tile));
+      // Randomly place one orange tile per row
+      if (Math.random() < 0.25) {
+        box.style.backgroundColor = 'orange'; // Make it orange
+        box.addEventListener('click', () => {
+          score++;
+          scoreEl.textContent = score;
+          box.style.opacity = 0.5; // Mark clicked box
+        });
       }
 
-      grid.appendChild(tile);
+      grid.appendChild(box); // Append the box to the grid
     }
   }
-}
-
-function handleCorrectClick(tile, row) {
-  if (clickedRows.has(row)) return;
-
-  clickedRows.add(row);
-  score++;
-  scoreDisplay.textContent = score;
-  tile.style.opacity = "0.6";
-
-  if (clickedRows.size === 7) {
-    clearInterval(tickInterval);
-    resetGrid();
-    tickInterval = setInterval(resetGrid, 5000);
-  }
-}
-
-function handleWrongClick(tile) {
-  tile.style.opacity = "0.4";
 }
