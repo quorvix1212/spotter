@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Over</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🎉 Time’s Up!</h1>
+    <p>Your Score: <span id="finalScore">0</span></p>
+    <a href="game.html" class="btn">Play Again</a>
+  </div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById('finalScore').textContent = params.get('score') || 0;
+  </script>
+</body>
+</html>
