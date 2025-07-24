@@ -34,22 +34,25 @@ function startGame() {
 function createFullGrid() {
   grid.innerHTML = ''; // Clear the grid before re-adding tiles
   for (let row = 0; row < 7; row++) {
+    const rowTiles = [];
     for (let col = 0; col < 4; col++) {
       const box = document.createElement('div');
       box.classList.add('box'); // Add the box class (red tile)
       box.style.backgroundColor = 'red'; // Make sure it's red initially
 
-      // Randomly place one orange tile per row
-      if (Math.random() < 0.25) {
+      // Ensure exactly one orange tile per row
+      if (rowTiles.length === 0) {
         box.style.backgroundColor = 'orange'; // Make it orange
         box.addEventListener('click', () => {
           score++;
           scoreEl.textContent = score;
           box.style.opacity = 0.5; // Mark clicked box
         });
+        rowTiles.push(box); // Add orange box to the row
+      } else {
+        rowTiles.push(box); // Add red box to the row
       }
-
-      grid.appendChild(box); // Append the box to the grid
     }
+    rowTiles.forEach(tile => grid.appendChild(tile)); // Add all boxes in the row to the grid
   }
 }
