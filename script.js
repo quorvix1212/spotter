@@ -1,93 +1,72 @@
-const grid = document.getElementById('grid');
-const startBtn = document.getElementById('startBtn');
-const timerEl = document.getElementById('timer');
-const scoreEl = document.getElementById('score');
+const startBtn = document.getElementById("startBtn");
+const grid = document.getElementById("grid");
+const timerDisplay = document.getElementById("timer");
+const scoreDisplay = document.getElementById("score");
 
-let timer, refreshTimer;
-let gameTime = 60;
+let gameInterval, tickInterval;
+let timeLeft = 60;
 let score = 0;
-let clickableBoxes = [];
-let boxesClickedThisRound = 0;
+let clickedRows = new Set();
 
-function createFullGrid() {
-  grid.innerHTML = '';
-  const totalBoxes = 4 * 7; // 4 columns, 7 rows
-  for (let i = 0; i < totalBoxes; i++) {
-    const box = document.createElement('div');
-    box.classList.add('box');
-    grid.appendChild(box);
-  }
-}
-
-function highlightRandomBoxes() {
-  const boxes = document.querySelectorAll('.box');
-  boxes.forEach(box => {
-    box.classList.remove('orange', 'clicked');
-    box.removeEventListener('click', handleBoxClick);
-  });
-
-  clickableBoxes = [];
-  boxesClickedThisRound = 0;
-
-  const orangeIndexes = [];
-  while (orangeIndexes.length < 7) {
-    const index = Math.floor(Math.random() * boxes.length);
-    if (!orangeIndexes.includes(index)) {
-      orangeIndexes.push(index);
-    }
-  }
-
-  orangeIndexes.forEach(i => {
-    const box = boxes[i];
-    box.classList.add('orange');
-    box.addEventListener('click', handleBoxClick);
-    clickableBoxes.push(box);
-  });
-}
-
-function handleBoxClick(e) {
-  if (!e.target.classList.contains('clicked')) {
-    e.target.classList.add('clicked');
-    score++;
-    scoreEl.textContent = score;
-    boxesClickedThisRound++;
-
-    if (boxesClickedThisRound === 7) {
-      clearInterval(refreshTimer);
-      highlightRandomBoxes();
-      refreshTimer = setInterval(highlightRandomBoxes, 5000); // reset timer
-    }
-  }
-}
+startBtn.addEventListener("click", startGame);
 
 function startGame() {
-  score = 0;
-  scoreEl.textContent = score;
-  gameTime = 60;
-  timerEl.textContent = gameTime;
+  startBtn.classList.add("hidden");
+  grid.classList.remove("hidden");
+  resetGrid();
+  tickInterval = setInterval(resetGrid, 5000);
 
-  createFullGrid();
-  highlightRandomBoxes();
+  gameInterval = setInterval(() => {
+    timeLeft--;
+    timerDisplay.textContent = timeLeft;
 
-  clearInterval(timer);
-  clearInterval(refreshTimer);
-
-  timer = setInterval(() => {
-    gameTime--;
-    timerEl.textContent = gameTime;
-    if (gameTime <= 0) {
-      clearInterval(timer);
-      clearInterval(refreshTimer);
-      endGame();
+    if (timeLeft <= 0) {
+      clearInterval(gameInterval);
+      clearInterval(tickInterval);
+      window.location.href = `result.html?score=${score}`;
     }
   }, 1000);
-
-  refreshTimer = setInterval(highlightRandomBoxes, 5000);
 }
 
-function endGame() {
-  localStorage.setItem('finalScore', score);
-  window.location.href = 'result.html';
+function resetGrid() {
+  grid.innerHTML = "";
+  clickedRows.clear();
+
+  for (let row = 0; row < 7; row++) {
+    const orangeIndex = Math.floor(Math.random() * 4);
+
+    for (let col = 0; col < 4; col++) {
+      const tile = document.createElement("div");
+      tile.classList.add("tile");
+      tile.dataset.row = row;
+
+      if (col === orangeIndex) {
+        tile.classList.add("orange");
+        tile.addEventListener("click", () => handleCorrectClick(tile, row));
+      } else {
+        tile.addEventListener("click", () => handleWrongClick(tile));
+      }
+
+      grid.appendChild(tile);
+    }
+  }
 }
 
-startBtn.addEventListener('click', startGame);
+function handleCorrectClick(tile, row) {
+  if (clickedRows.has(row)) return;
+
+  clickedRows.add(row);
+  score++;
+  scoreDisplay.textContent = score;
+  tile.style.opacity = "0.6";
+
+  if (clickedRows.size === 7) {
+    clearInterval(tickInterval);
+    resetGrid();
+    tickInterval = setInterval(resetGrid, 5000);
+  }
+}
+
+function handleWrongClick(tile) {
+  tile.style.opacity = "0.4";
+}
