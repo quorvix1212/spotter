@@ -66,6 +66,7 @@ h2 {
   background-color: #ff4f3d;
 }
 
+/* Grid Styling */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -74,6 +75,8 @@ h2 {
   margin-top: 20px;
   width: 90%;
   max-width: 600px;
+  height: calc(100vh - 160px); /* Adjust height minus top text */
+  visibility: visible; /* Ensure grid is visible */
 }
 
 .box {
@@ -83,10 +86,13 @@ h2 {
   transition: transform 0.2s;
 }
 
-/* Orange Box */
 .orange {
   background-color: orange;
   border: 2px solid green;
+}
+
+.hidden {
+  display: none;
 }
 
 /* Info Section */
@@ -95,11 +101,6 @@ h2 {
   margin-bottom: 15px;
 }
 
-.hidden {
-  display: none;
-}
-
-/* Responsive for mobile */
 @media (max-width: 768px) {
   body {
     background: linear-gradient(to right, #f6a700, #f7d49e); /* Gradient for mobile */
