@@ -1,82 +1,54 @@
-/* Reset */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-/* Body and overall */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  overflow: hidden;
+html, body {
   height: 100vh;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background-color: #f3f7e4;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.home-container,
-.game-container,
-.result-container {
+.game-container {
   text-align: center;
   width: 100%;
-  padding: 20px;
+  max-width: 900px;
+  padding: 10px;
 }
 
-h1, h2 {
-  margin-bottom: 20px;
-}
-
-.btn {
-  padding: 12px 24px;
-  font-size: 18px;
-  background-color: #ff6b6b;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 20px;
-}
-
-.btn:hover {
-  background-color: #ff4747;
-}
-
-/* Grid Styling */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(7, 1fr);
-  gap: 8px;
-  margin: 20px auto;
-  width: 90vw;
-  max-width: 500px;
-  height: 70vh;
-  max-height: 500px;
+  gap: 10px;
+  margin-top: 20px;
+  height: calc(100vh - 160px); /* Adjust height minus top text */
 }
 
-.tile {
+.box {
   background-color: red;
-  border-radius: 8px;
-  transition: background 0.3s;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
-/* Orange tile */
-.tile.orange {
+.box:hover {
+  transform: scale(1.05);
+}
+
+.orange {
   background-color: orange;
+  border: 2px solid green;
 }
 
-/* Hide element utility */
-.hidden {
-  display: none;
-}
-
-/* Info bar */
-#info {
-  font-size: 18px;
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 10px;
+@media (max-width: 768px) {
+  .grid {
+    gap: 6px;
+    height: calc(100vh - 140px);
+  }
 }
